@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
 <head>
 <title>DinoIndex</title>
@@ -126,173 +126,54 @@ button:hover{
 </div>
 
 <ul id="id01">
-  <li data-dinotype="therapod">Achillobator</li>
-  <li data-dinotype="therapod">Alectrosaurus</li>
-  <li data-dinotype="therapod">Alioramus</li>
-  <li data-dinotype="therapod">Anserimimus</li>
-  <li data-dinotype="therapod">Avimimus</li>
-  <li data-dinotype="">Bagaceratops</li>
-  <li data-dinotype="therapod">Borogovia</li>
-  <li data-dinotype="therapod">Citipati</li>
-  <li data-dinotype="therapod">Conchoraptor</li>
-  <li data-dinotype="therapod">Deinocheirus</li>
-  <li>Erketu</li>
-  <li data-dinotype="therapod">Erlikosaurus</li>
-  <li data-dinotype="therapod">Gallimimus</li>
-  <li data-dinotype="therapod">Garudimimus</li>
-  <li data-dinotype="therapod">Gigantoraptor</li>
-  <li>Goyocephale</li>
-  <li>Graciliceratops</li>
-  <li data-dinotype="therapod">Harpymimus</li>
-  <li data-dinotype="therapod">Heyuannia</li>
-  <li data-dinotype="therapod">Homalocephale</li>
-  <li data-dinotype="therapod">Khaan</li>
-  <li>Microceratus</li>
-  <li data-dinotype="therapod">Monoykus</li>
-  <li>Nemegtosaurus</li>
-  <li data-dinotype="therapod">Nomingia</li>
-  <li>Opisthocoelicaudia</li>
-  <li data-dinotype="therapod">Ovirator</li>
-  <li>Pinacosaurus</li>
-  <li>Prenocephale</li>
-  <li>Protoceratops</li>
-  <li>Psittacosaurus</li>
-  <li>Quaesitosaurus</li>
-  <li data-dinotype="therapod">Rinchenia</li>
-  <li>Saichania</li>
-  <li>Saurolophus</li>
-  <li data-dinotype="therapod">Saurornithoides</li>
-  <li data-dinotype="therapod">Segnosaurus</li>
-  <li>Shamosaurus</li>
-  <li data-dinotype="therapod">Shanag</li>
-  <li data-dinotype="therapod">Shuvuuia</li>
-  <li>Talarurus</li>
-  <li>Tarbosaurus</li>
-  <li data-dinotype="therapod">Tarchia</li>
-  <li data-dinotype="therapod">Therizinosaurus</li>
-  <li>Tsagantegia</li>
-  <li>Tylocephale</li>
-  <li>Udanoceratops</li>
-  <li data-dinotype="therapod">Velociraptor</li>
-  
+ 
   
 </ul>
 
 
 
 <script>
-
-var showall = true; // Initialize showall to true initially
-
-function sortListDir() {
-  var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
-  list = document.getElementById("id01");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc";
-  // Make a loop that will continue until no switching has been done:
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    b = list.getElementsByTagName("LI");
-    // Loop through all list-items:
-    for (i = 0; i < (b.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Check if the next item should switch place with the current item,
-      based on the sorting direction (asc or desc): */
-      if (dir == "asc") {
-        if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
-          /* If next item is alphabetically lower than current item,
-          mark as a switch and break the loop: */
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
-          /* If next item is alphabetically higher than current item,
-          mark as a switch and break the loop: */
-          shouldSwitch= true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      b[i].parentNode.insertBefore(b[i + 1], b[i]);
-      switching = true;
-      // Each time a switch is done, increase switchcount by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
+// Function to fetch JSON data from a file
+async function fetchDinosaursData() {
+  try {
+    const response = await fetch('./DinoInfo.json'); // Fetch JSON file
+    const data = await response.json(); // Parse JSON response
+    return data.dinosaurs; // Return the dinosaurs array from JSON data
+  } catch (error) {
+    console.error('Error fetching dinosaurs data:', error);
+    return []; // Return an empty array if there's an error
   }
 }
 
-// Show All
-document.addEventListener('DOMContentLoaded', function() {
-    // Get reference to the button and the list
-    var showAllButton = document.getElementById('showAllButton');
-    var itemList = document.getElementById('id01');
+// Function to generate the list of dinosaurs
+async function generateDinosaurList() {
+  const ul = document.getElementById("id01");
 
-    // Add event listener to the button
-    showAllButton.addEventListener('click', function() {
-        // Loop through each list item
-        showall = true;
-        var listItems = itemList.getElementsByTagName("li");
-        for (var i = 0; i < listItems.length; i++) {
-            listItems[i].style.display = "";
-        }
-    });
-});
+  // Fetch JSON data
+  const dinosaursData = await fetchDinosaursData();
 
-// Therapod Button
-document.getElementById("show-therapods").addEventListener("click", function() {
-    // Set showall to false when the "Show Therapods" button is clicked
-    showall = false;
-
-    // Get all list items
-    var listItems = document.getElementById("id01").getElementsByTagName("li");
-
-    // Loop through each list item
-    for (var i = 0; i < listItems.length; i++) {
-        var listItem = listItems[i];
-        // Check if the list item has data-dinotype="therapod"
-        if (listItem.getAttribute("data-dinotype") !== "therapod") {
-            // Hide the list item if it's not a therapod
-            listItem.style.display = "none";
-        } else {
-            // Show the list item if it's a therapod
-            listItem.style.display = "";
-        }
-    }
-});
-
-//searchbar
-function searchDinosaurs() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('searchInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("id01");
-    li = ul.getElementsByTagName('li');
-    for (i = 0; i < li.length; i++) {
-        a = li[i];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
+  // Loop through each dinosaur in the data and create list item
+  dinosaursData.forEach(dinosaur => {
+    // Create list item
+    const li = document.createElement("li");
+    
+    // Create link
+    const link = document.createElement("a");
+    link.textContent = dinosaur.name;
+    link.href = `http://localhost:8000/IndexPage-${dinosaur.id}.html`; // Construct the URL using the dinosaur's ID
+    
+    // Append link to list item
+    li.appendChild(link);
+    
+    // Append list item to unordered list
+    ul.appendChild(li);
+  });
 }
 
+// Call the function to generate the list when the page loads
+document.addEventListener('DOMContentLoaded', generateDinosaurList);
 </script>
+
 
 
 </Body>
