@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DinoIndex</title>
+<style>
+/* Background Style */
+body {
+        margin: 0;
+        padding: 0;
+        background-image: url('SonichuOriginal.jpg');
+        background-size: stretch;
+        background-attachment: fixed;
+    }
+
+    
+	
+	/* Style for the button container */
+	.search-container {
+    display: flex;
+    justify-content: center; /* Align buttons horizontally */
+    margin-top: 20px;
+}
+
+
+    /* Style for the search bar */
+    #searchInput {
+        width: 60%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensure padding and border are included in the element's total width */
+        font-size: 16px;
+		text-align: center;
+		justify-self: center;
+		
+    }
+
+    /* Style for the search bar placeholder text */
+    #searchInput::placeholder {
+        color: #999;
+    }
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+li {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the button container */
+.button-container {
+    display: flex;
+    justify-content: center; /* Align buttons horizontally */
+    margin-top: 20px;
+}
+a {
+        display: block;
+        text-align: center;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    a:hover {
+        background-color: #0056b3;
+    }
+button {
+    display: inline-block; /* Make buttons display inline */
+    margin: 0 10px; /* Add margin between buttons */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover{
+    background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+
+<h1>DinoIndex</h1>
+
+
+
+<div class="button-container">
+	<a href="file:///C:/Users/Waldron/Desktop/DinoIndex/Homepage/DinoIndexHomepage.html">Return to Homepage</a>
+</div>
+
+<div class="search-container">
+<input type="text" id="searchInput" onkeyup="searchDinosaurs()" placeholder="Search for dinosaurs...">
+</div>
+<!-- Button container -->
+<div class="button-container">
+    <button onclick="sortListDir()">Sort Alphabetically</button>
+    <button id="showAllButton">Show All Items</button>
+    <button id="show-therapods">Show Therapods</button>
+</div>
+
+<ul id="id01">
+  <li data-dinotype="therapod">Achillobator</li>
+  <li data-dinotype="therapod">Alectrosaurus</li>
+  <li data-dinotype="therapod">Alioramus</li>
+  <li data-dinotype="therapod">Anserimimus</li>
+  <li data-dinotype="therapod">Avimimus</li>
+  <li data-dinotype="">Bagaceratops</li>
+  <li data-dinotype="therapod">Borogovia</li>
+  <li data-dinotype="therapod">Citipati</li>
+  <li data-dinotype="therapod">Conchoraptor</li>
+  <li data-dinotype="therapod">Deinocheirus</li>
+  <li>Erketu</li>
+  <li data-dinotype="therapod">Erlikosaurus</li>
+  <li data-dinotype="therapod">Gallimimus</li>
+  <li data-dinotype="therapod">Garudimimus</li>
+  <li data-dinotype="therapod">Gigantoraptor</li>
+  <li>Goyocephale</li>
+  <li>Graciliceratops</li>
+  <li data-dinotype="therapod">Harpymimus</li>
+  <li data-dinotype="therapod">Heyuannia</li>
+  <li data-dinotype="therapod">Homalocephale</li>
+  <li data-dinotype="therapod">Khaan</li>
+  <li>Microceratus</li>
+  <li data-dinotype="therapod">Monoykus</li>
+  <li>Nemegtosaurus</li>
+  <li data-dinotype="therapod">Nomingia</li>
+  <li>Opisthocoelicaudia</li>
+  <li data-dinotype="therapod">Ovirator</li>
+  <li>Pinacosaurus</li>
+  <li>Prenocephale</li>
+  <li>Protoceratops</li>
+  <li>Psittacosaurus</li>
+  <li>Quaesitosaurus</li>
+  <li data-dinotype="therapod">Rinchenia</li>
+  <li>Saichania</li>
+  <li>Saurolophus</li>
+  <li data-dinotype="therapod">Saurornithoides</li>
+  <li data-dinotype="therapod">Segnosaurus</li>
+  <li>Shamosaurus</li>
+  <li data-dinotype="therapod">Shanag</li>
+  <li data-dinotype="therapod">Shuvuuia</li>
+  <li>Talarurus</li>
+  <li>Tarbosaurus</li>
+  <li data-dinotype="therapod">Tarchia</li>
+  <li data-dinotype="therapod">Therizinosaurus</li>
+  <li>Tsagantegia</li>
+  <li>Tylocephale</li>
+  <li>Udanoceratops</li>
+  <li data-dinotype="therapod">Velociraptor</li>
+  
+  
+</ul>
+
+
+
+<script>
+
+var showall = true; // Initialize showall to true initially
+
+function sortListDir() {
+  var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
+  list = document.getElementById("id01");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  // Make a loop that will continue until no switching has been done:
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    b = list.getElementsByTagName("LI");
+    // Loop through all list-items:
+    for (i = 0; i < (b.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Check if the next item should switch place with the current item,
+      based on the sorting direction (asc or desc): */
+      if (dir == "asc") {
+        if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+          /* If next item is alphabetically lower than current item,
+          mark as a switch and break the loop: */
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
+          /* If next item is alphabetically higher than current item,
+          mark as a switch and break the loop: */
+          shouldSwitch= true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      b[i].parentNode.insertBefore(b[i + 1], b[i]);
+      switching = true;
+      // Each time a switch is done, increase switchcount by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+// Show All
+document.addEventListener('DOMContentLoaded', function() {
+    // Get reference to the button and the list
+    var showAllButton = document.getElementById('showAllButton');
+    var itemList = document.getElementById('id01');
+
+    // Add event listener to the button
+    showAllButton.addEventListener('click', function() {
+        // Loop through each list item
+        showall = true;
+        var listItems = itemList.getElementsByTagName("li");
+        for (var i = 0; i < listItems.length; i++) {
+            listItems[i].style.display = "";
+        }
+    });
+});
+
+// Therapod Button
+document.getElementById("show-therapods").addEventListener("click", function() {
+    // Set showall to false when the "Show Therapods" button is clicked
+    showall = false;
+
+    // Get all list items
+    var listItems = document.getElementById("id01").getElementsByTagName("li");
+
+    // Loop through each list item
+    for (var i = 0; i < listItems.length; i++) {
+        var listItem = listItems[i];
+        // Check if the list item has data-dinotype="therapod"
+        if (listItem.getAttribute("data-dinotype") !== "therapod") {
+            // Hide the list item if it's not a therapod
+            listItem.style.display = "none";
+        } else {
+            // Show the list item if it's a therapod
+            listItem.style.display = "";
+        }
+    }
+});
+
+//searchbar
+function searchDinosaurs() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('searchInput');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("id01");
+    li = ul.getElementsByTagName('li');
+    for (i = 0; i < li.length; i++) {
+        a = li[i];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+</script>
+
+
+</Body>
+
+
+
+</html>
+
